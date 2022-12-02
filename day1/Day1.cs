@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 
 namespace aoc2022.day1
 {
-    internal class Program
+    public class Day1
     {
-        static void Main(string[] args)
+        public static void Run(string[] args)
         {
             /*
              // example list.. set values as string
@@ -33,7 +33,7 @@ namespace aoc2022.day1
             var sum_list = new List<int>();
             int current_elf_calorie_sum = 0;
             foreach(string calorie in calorie_list){
-                Console.WriteLine(calorie);
+                // Console.WriteLine(calorie);
                 if (string.IsNullOrEmpty(calorie))
                 {
                     Console.WriteLine($"New Elf, current sum {current_elf_calorie_sum}");
@@ -53,7 +53,7 @@ namespace aoc2022.day1
             Console.WriteLine($"Most carried calories by one elf: {sum_list[sum_list.Count - 1]}");
             #endregion
 
-            #region part 
+            #region part 2
             Console.WriteLine("\nPart 2");
             var top_three = sum_list.TakeLast(3);
             var top_three_sum = top_three.Sum();
