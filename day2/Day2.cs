@@ -10,7 +10,7 @@ namespace aoc2022.day2
         
         public static void Run(string[] args)
         {
-            string[] data_file = File.ReadAllLines("C:\\Users\\simsun\\source\\repos\\aoc2022\\day2\\Data.txt");
+            string[] data_file = File.ReadAllLines("/home/simon/Dokument/codespace/csharp/aoc2022/day2/Data.txt");
 
             // Opponents hands
             // A B C Rock paper scissor
