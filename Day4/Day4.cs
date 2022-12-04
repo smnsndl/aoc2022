@@ -11,9 +11,10 @@ namespace aoc2022.Day4
         
         public static void Run(string[] args)
         {
-            Console.WriteLine("Day 4");
-            //string[] data_file = File.ReadAllLines("/home/simon/Dokument/codespace/csharp/aoc2022/Day4/Example.txt");
-            string[] data_file = File.ReadAllLines("/home/simon/Dokument/codespace/csharp/aoc2022/Day4/Data.txt");
+            Console.WriteLine("--- Day 4: Camp Cleanup ---");
+
+            //string[] data_file = File.ReadAllLines("./Day4/Example.txt");
+            string[] data_file = File.ReadAllLines("./Day4/Data.txt");
 
             int total = 0;
             int total_with_any_overlap = 0;
@@ -38,7 +39,7 @@ namespace aoc2022.Day4
                 IEnumerable<int> differenceQuery = a1_range.Except(a2_range).ToList();
                 IEnumerable<int> differenceQuery2 = a2_range.Except(a1_range).ToList();
                 if(differenceQuery.Count() == 0 || differenceQuery2.Count() == 0){
-                    Console.WriteLine("Found an assignment which is fully contained in the other");
+                    // Console.WriteLine("Found an assignment which is fully contained in the other");
                     total += 1;
                 }
 
@@ -48,9 +49,10 @@ namespace aoc2022.Day4
                     total_with_any_overlap += 1;
                 }
             }
-            
-            Console.WriteLine($"Part1: {total}");
+
+            Console.WriteLine($"Part 1: {total}");
             Console.WriteLine($"Part 2, any overlap count: {total_with_any_overlap}");
+            Console.WriteLine(new string('-', 80));        
         }
     }
 }
