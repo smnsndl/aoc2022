@@ -16,37 +16,41 @@ namespace aoc2022.Day4
             string[] data_file = File.ReadAllLines("/home/simon/Dokument/codespace/csharp/aoc2022/Day4/Data.txt");
 
             int total = 0;
-            int any_overlap = 0;
-            foreach(var x in data_file){
-                var assignment1 = x.Split(",")[0];
-                var assignment2 = x.Split(",")[1];
-                List<int> a1 = assignment1
+            int total_with_any_overlap = 0;
+            foreach(var row in data_file){
+                List<int> assignment1 = row.Split(",")[0]
                                 .Split("-")
                                 .Select(number => Convert.ToInt32(number))
                                 .ToList();
-                List<int> a2 = assignment2
+                List<int> assignment2 = row.Split(",")[1]
                                 .Split("-")
                                 .Select(number => Convert.ToInt32(number))
                                 .ToList();
-                var a1_range = Enumerable.Range(a1[0], a1[1] - a1[0] + 1);
-                var a2_range = Enumerable.Range(a2[0], a2[1] - a2[0] + 1);
+                                
+                // Create range from the assignment values
+                // First value in assigment is starting number
+                // a1[1] - a1[0] + 1 calculates the number of elements to create, should end in the value from a1[1]
+                var a1_range = Enumerable.Range(assignment1[0], assignment1[1] - assignment1[0] + 1);
+                var a2_range = Enumerable.Range(assignment2[0], assignment2[1] - assignment2[0] + 1);
                 
+                // Check for diff in the ranges
+                // If one range is fully contained in the other -> Except will be 0
                 IEnumerable<int> differenceQuery = a1_range.Except(a2_range).ToList();
                 IEnumerable<int> differenceQuery2 = a2_range.Except(a1_range).ToList();
-
                 if(differenceQuery.Count() == 0 || differenceQuery2.Count() == 0){
                     Console.WriteLine("Found an assignment which is fully contained in the other");
                     total += 1;
                 }
-                Console.WriteLine($"Part1: {total}");
 
                 // Part 2, any overlap
                 bool overlap = a1_range.Intersect(a2_range).Any();
                 if(overlap) {
-                    any_overlap += 1;
+                    total_with_any_overlap += 1;
                 }
-                Console.WriteLine($"Part 2, any overlap count: {any_overlap}");
             }
+            
+            Console.WriteLine($"Part1: {total}");
+            Console.WriteLine($"Part 2, any overlap count: {total_with_any_overlap}");
         }
     }
 }
