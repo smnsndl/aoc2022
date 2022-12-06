@@ -23,7 +23,8 @@ namespace aoc2022
             //Day2.Day2.Run(args);
             //Day3.Day3.Run(args);
             //Day4.Day4.Run(args);
-            Day5.Day5.Run(args);
+            //Day5.Day5.Run(args);
+            Day6.Day6.Run(args);
 
         }
     }
