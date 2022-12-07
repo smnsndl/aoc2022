@@ -6,7 +6,7 @@ namespace aoc2022.Day1
 {
     public class Day1
     {
-        public static void Run(string[] args)
+        public static void Run()
         {
             Console.WriteLine("--- Day 1: Calorie Counting ---");
 

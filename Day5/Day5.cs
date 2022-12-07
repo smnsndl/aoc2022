@@ -2,6 +2,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -12,7 +13,7 @@ namespace aoc2022.Day5
     {
         public static Regex MoveFromTo = new Regex("move (\\d+) from (\\d+) to (\\d+)", RegexOptions.IgnoreCase);
 
-        public static void Run(string[] args)
+        public static void Run()
         {
             Console.WriteLine("--- Day 5: Supply Stacks ---\r\n");
             List<List<Stack>> myList = new();
@@ -22,6 +23,30 @@ namespace aoc2022.Day5
          
             Console.WriteLine(SolvePart1(data_file));
             Console.WriteLine(SolvePart2(data_file));
+
+
+            List<string> headers = new();
+            foreach(var row in data_file)
+            {
+                if (String.IsNullOrEmpty(row))
+                {
+                    break;
+                }
+                headers.Add(row);
+            }
+            var header_transpose = headers.SelectMany(inner => inner.Select((item, index) => new { item, index }))
+                                        .GroupBy(i => i.index, i => i.item)
+                                        .Select(g => g.ToList())
+                                        .ToList();
+
+            var crates = data_file.Where(l => l.Length != 0 && l[0] != 'm');
+
+            //Console.WriteLine(string.Join("\n", crates1.ToArray()));
+
+
+
+           // Console.WriteLine(string.Join("\n", headers.ToArray()));
+
 
         }
 

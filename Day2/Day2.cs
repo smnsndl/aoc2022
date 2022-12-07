@@ -8,7 +8,7 @@ namespace aoc2022.Day2
     public class Day2
     {
         
-        public static void Run(string[] args)
+        public static void Run()
         {
             Console.WriteLine("--- Day 2: Rock Paper Scissors ---");
 

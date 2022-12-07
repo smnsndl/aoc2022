@@ -12,7 +12,7 @@ namespace aoc2022.Day6
     public class Day6
     {
 
-        public static void Run(string[] args)
+        public static void Run()
         {
             Console.WriteLine("--- Day 6: Tuning Trouble ---\r\n");
             char[] example1 = "mjqjpqmgbljsphdztnvjfqwrcgsmlb".ToCharArray();

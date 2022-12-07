@@ -9,7 +9,7 @@ namespace aoc2022.Day3
     public class Day3
     {
         
-        public static void Run(string[] args)
+        public static void Run()
         {
             Console.WriteLine("--- Day 3: Rucksack Reorganization ---");        
 
