@@ -17,7 +17,7 @@ namespace aoc2022.Day8
         public static void Run()
         {
             Console.WriteLine("--- Day 8: Treetop Tree House ---\r\n");
-            string[] dataLines = File.ReadAllLines("C:\\Users\\simsun\\source\\repos\\aoc2022\\Day8\\Data.txt");
+            string[] dataLines = File.ReadAllLines("./Day8/Data.txt");
             int[,] treeArray = ParseInputTo2DArray(dataLines);
 
             int treeRows = treeArray.GetLength(0); // starts at 1 
@@ -68,7 +68,7 @@ namespace aoc2022.Day8
                         visibleTreesArray[currentRow, currentCol] = true;
                         continue;
                     }
-
+                    
                     // SOUTH
                     visible = true;
                     for (int j = treeRows - 1; visible && currentRow < j; j--)
@@ -88,6 +88,9 @@ namespace aoc2022.Day8
                 for (int currentCol = 0; currentCol < treeCols; currentCol++)
                 {
                     var height = treeArray[currentRow, currentCol];
+                    // initialize score
+                    treeScores[currentRow, currentCol] = 1; 
+                
                     // w
                     var cnt = 0;
                     for (int j = currentCol - 1; j >= 0; j--)
@@ -148,22 +151,21 @@ namespace aoc2022.Day8
             //} 
 
 
-            for (int rowIdx = 0; rowIdx < treeRows; rowIdx += 1)
+            /* for (int rowIdx = 0; rowIdx < treeRows; rowIdx += 1)
             {
                 for (int colIdx = 0; colIdx < treeCols; colIdx += 1)
                 {
                     Console.Write(treeScores[rowIdx, colIdx] +" ");
                 }
                 Console.Write("\n");
-            }
+            } */
 
             List<bool> part1 = visibleTreesArray.Cast<bool>().ToList();
             List<Int64> part2 = treeScores.Cast<Int64>().ToList();
 
-            Console.WriteLine($"Part 1:{visibleTreesSum}");
-            //Console.WriteLine($"Part 1:{part1.Select(val => val==true).Count()}");
-            Console.WriteLine("Part 2:");
-            Console.Write(part2.Max());
+            // Console.WriteLine($"Part 1: {visibleTreesSum}");
+            Console.WriteLine($"Part 1:{part1.Where(val => val==true).Count()}");
+            Console.WriteLine($"Part 2: {part2.Max()}");
         }
 
         private static int[,] ParseInputTo2DArray(string[] input)
