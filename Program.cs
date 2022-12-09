@@ -17,14 +17,14 @@ namespace aoc2022
                 new FigletText(msg)
                     .Centered()
                     .Color(Color.Gold1));
-            Day1.Day1.Run();
-            Day2.Day2.Run();
-            Day3.Day3.Run();
-            Day4.Day4.Run();
-            Day5.Day5.Run();
-            Day6.Day6.Run();
-            Day7.Day7.Run();
-            Day8.Day8.Run();
+            //Day1.Day1.Run();
+            //Day2.Day2.Run();
+            //Day3.Day3.Run();
+            //Day4.Day4.Run();
+            //Day5.Day5.Run();
+            //Day6.Day6.Run();
+            //Day7.Day7.Run();
+            //Day8.Day8.Run();
             Day9.Day9.Run();
 
         }
