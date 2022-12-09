@@ -1,13 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
+using Spectre.Console;
 
 namespace aoc2022.Day8
 {
@@ -16,8 +7,12 @@ namespace aoc2022.Day8
 
         public static void Run()
         {
-            Console.WriteLine("--- Day 8: Treetop Tree House ---\r\n");
-            string[] dataLines = File.ReadAllLines("./Day8/Data.txt");
+            var greeting = new Spectre.Console.Rule("[green]Day 8: Treetop Tree House[/]");
+            greeting.LeftAligned();
+            greeting.Style = Style.Parse("green");
+            AnsiConsole.Write(greeting);
+
+            string[] dataLines = File.ReadAllLines("..\\..\\..\\Day8\\Data.txt");
             int[,] treeArray = ParseInputTo2DArray(dataLines);
 
             int treeRows = treeArray.GetLength(0); // starts at 1 
@@ -88,11 +83,10 @@ namespace aoc2022.Day8
                 for (int currentCol = 0; currentCol < treeCols; currentCol++)
                 {
                     var height = treeArray[currentRow, currentCol];
-                    // initialize score
-                    treeScores[currentRow, currentCol] = 1; 
-                
                     // w
                     var cnt = 0;
+                    // initialize score
+                    treeScores[currentRow, currentCol] = 1;
                     for (int j = currentCol - 1; j >= 0; j--)
                     {
                         cnt++;
@@ -180,12 +174,6 @@ namespace aoc2022.Day8
                 }
             }
             return tree_array;
-        }
-
-        private static bool Visible(int[,] trees, int row, int col, int height)
-        {
-
-            return false;
         }
 
     }

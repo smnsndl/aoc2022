@@ -1,3 +1,4 @@
+using Spectre.Console;
 using System.Collections;
 using System.Diagnostics;
 using System.Linq;
@@ -11,10 +12,13 @@ namespace aoc2022.Day4
         
         public static void Run()
         {
-            Console.WriteLine("--- Day 4: Camp Cleanup ---");
+            var greeting = new Rule("[green]Day 4: Camp Cleanup[/]");
+            greeting.LeftAligned();
+            greeting.Style = Style.Parse("green");
+            AnsiConsole.Write(greeting);
 
             //string[] data_file = File.ReadAllLines("./Day4/Example.txt");
-            string[] data_file = File.ReadAllLines("./Day4/Data.txt");
+            string[] data_file = File.ReadAllLines("..\\..\\..\\Day4\\Data.txt");
 
             int total = 0;
             int total_with_any_overlap = 0;
@@ -52,7 +56,6 @@ namespace aoc2022.Day4
 
             Console.WriteLine($"Part 1: {total}");
             Console.WriteLine($"Part 2, any overlap count: {total_with_any_overlap}");
-            Console.WriteLine(new string('-', 80));        
         }
     }
 }

@@ -1,3 +1,4 @@
+using Spectre.Console;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +15,11 @@ namespace aoc2022.Day6
 
         public static void Run()
         {
-            Console.WriteLine("--- Day 6: Tuning Trouble ---\r\n");
+            var greeting = new Rule("[green]Day 6: Tuning Trouble[/]");
+            greeting.LeftAligned();
+            greeting.Style = Style.Parse("green");
+            AnsiConsole.Write(greeting);
+
             char[] example1 = "mjqjpqmgbljsphdztnvjfqwrcgsmlb".ToCharArray();
             char[] example2 = "bvwbjplbgvbhsrlpgdmjqwftvncz".ToCharArray();
             char[] example3 = "nppdvjthqldpwncqszvftbrmjlhg".ToCharArray();
@@ -30,7 +35,7 @@ namespace aoc2022.Day6
 
 
             Console.WriteLine("Input file");
-            char[] data_file = File.ReadAllText("C:\\Users\\simsun\\source\\repos\\aoc2022\\Day6\\Data.txt").ToCharArray();
+            char[] data_file = File.ReadAllText("..\\..\\..\\Day6\\Data.txt").ToCharArray();
             Console.WriteLine($"Part 1: {Tuner(data_file, 4)}");
             Console.WriteLine($"Part 2: {Tuner(data_file, 14)}");
         }

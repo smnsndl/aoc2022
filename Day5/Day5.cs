@@ -1,3 +1,4 @@
+using Spectre.Console;
 using System.Collections;
 using System.Diagnostics;
 using System.Linq;
@@ -15,10 +16,14 @@ namespace aoc2022.Day5
 
         public static void Run()
         {
-            Console.WriteLine("--- Day 5: Supply Stacks ---\r\n");
+            var greeting = new Rule("[green]Day 5: Supply Stacks[/]");
+            greeting.LeftAligned();
+            greeting.Style = Style.Parse("green");
+            AnsiConsole.Write(greeting);
+
             List<List<Stack>> myList = new();
             //string[] example_lines = File.ReadAllLines("C:\\Users\\simsun\\source\\repos\\aoc2022\\Day5\\Example.txt");
-            string[] data_file = File.ReadAllLines("C:\\Users\\simsun\\source\\repos\\aoc2022\\Day5\\Data.txt");
+            string[] data_file = File.ReadAllLines("..\\..\\..\\Day5\\Data.txt");
 
          
             Console.WriteLine(SolvePart1(data_file));
@@ -42,12 +47,7 @@ namespace aoc2022.Day5
             var crates = data_file.Where(l => l.Length != 0 && l[0] != 'm');
 
             //Console.WriteLine(string.Join("\n", crates1.ToArray()));
-
-
-
            // Console.WriteLine(string.Join("\n", headers.ToArray()));
-
-
         }
 
         static (Stack<char>[], int) ParseInput(string[] lines)

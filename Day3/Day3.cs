@@ -1,3 +1,4 @@
+using Spectre.Console;
 using System.Collections;
 using System.Diagnostics;
 using System.Linq;
@@ -11,7 +12,10 @@ namespace aoc2022.Day3
         
         public static void Run()
         {
-            Console.WriteLine("--- Day 3: Rucksack Reorganization ---");        
+            var greeting = new Rule("[green]Day 3: Rucksack Reorganization[/]");
+            greeting.LeftAligned();
+            greeting.Style = Style.Parse("green");
+            AnsiConsole.Write(greeting);
 
             string[] example = {"vJrwpWtwJgWrhcsFMMfFFhFp",
             "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
@@ -19,7 +23,7 @@ namespace aoc2022.Day3
             "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
             "ttgJtRGJQctTZtZT",
             "CrZsJsPPZsGzwwsLwLmpwMDw"};
-            string[] data_file = File.ReadAllLines("./Day3/Data.txt");
+            string[] data_file = File.ReadAllLines("..\\..\\..\\Day3\\Data.txt");
 
 
             var part1 = data_file.Select(rucksack =>
@@ -34,7 +38,6 @@ namespace aoc2022.Day3
                 .Select(group => group[2].Intersect(group[1].Intersect(group[0])))
                 .Aggregate(0, (sum, commonItem) => sum + GetPriority(commonItem.First()));
             Console.WriteLine($"Part 2 result: {part2}");
-            Console.WriteLine(new string('-', 80));        
         }
         public static int GetPriority(char item)
         {

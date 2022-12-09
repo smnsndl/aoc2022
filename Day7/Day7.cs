@@ -1,3 +1,4 @@
+using Spectre.Console;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,8 +16,13 @@ namespace aoc2022.Day7
 
         public static void Run()
         {
-            Console.WriteLine("--- Day 7: No Space Left On Device ---\r\n");
-            string[] dataLines = File.ReadAllLines("C:\\Users\\simsun\\source\\repos\\aoc2022\\Day7\\Example.txt");
+            var greeting = new Rule("[green]Day 7: No Space Left On Device[/]");
+            greeting.LeftAligned();
+            greeting.Style = Style.Parse("green");
+            AnsiConsole.Write(greeting);
+
+
+            string[] dataLines = File.ReadAllLines("..\\..\\..\\Day7\\Example.txt");
             var workingDirectory = "";
             var paths = new Dictionary<string, int>();
             for (int i = 0; i < dataLines.Length; i += 1)

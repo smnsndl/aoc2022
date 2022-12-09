@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Spectre.Console;
+using System.Collections;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -8,7 +9,11 @@ namespace aoc2022.Day1
     {
         public static void Run()
         {
-            Console.WriteLine("--- Day 1: Calorie Counting ---");
+            var greeting = new Rule("[green]Day 1: Calorie Counting[/]");
+            greeting.LeftAligned();
+            greeting.Style = Style.Parse("green");
+            AnsiConsole.Write(greeting);
+
 
             /*
              // example list.. set values as string
@@ -29,7 +34,7 @@ namespace aoc2022.Day1
                 "",
                 "10000" };*/
             #region part1
-            string[] data_file = File.ReadAllLines("./Day1/Data.txt");
+            string[] data_file = File.ReadAllLines("..\\..\\..\\Day1\\Data.txt");
             var calorie_list = new List<string>(data_file);
 
             var sum_list = new List<int>();
@@ -61,8 +66,6 @@ namespace aoc2022.Day1
             var top_three_sum = top_three.Sum();
             Console.WriteLine($"Sum top three calories: {top_three_sum}");
             #endregion
-
-            Console.WriteLine(new string('-', 80));
         }
     }
 }

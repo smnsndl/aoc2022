@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Spectre.Console;
+using System.Collections;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -10,9 +11,12 @@ namespace aoc2022.Day2
         
         public static void Run()
         {
-            Console.WriteLine("--- Day 2: Rock Paper Scissors ---");
+            var greeting = new Rule("[green]Day 2: Rock Paper Scissors[/]");
+            greeting.LeftAligned();
+            greeting.Style = Style.Parse("green");
+            AnsiConsole.Write(greeting);
 
-            string[] data_file = File.ReadAllLines("./Day2/Data.txt");
+            string[] data_file = File.ReadAllLines("..\\..\\..\\Day2\\Data.txt");
 
             // Opponents hands
             // A B C Rock paper scissor
@@ -44,8 +48,6 @@ namespace aoc2022.Day2
 
             Console.WriteLine($"If all goes according to plan: {total_part2}");
             #endregion
-            Console.WriteLine(new string('-', 80));        
-
         }
 
         public static int CalculateScore(Dictionary<string, int> score_table, string[] data_input)
