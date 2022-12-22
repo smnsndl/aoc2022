@@ -24,121 +24,54 @@ namespace aoc2022.Day12
             var timer = new Stopwatch();
             timer.Start();
 
-            //var data = File.ReadAllLines("..\\..\\..\\Day12\\example.txt");
+            //var example = File.ReadAllLines("..\\..\\..\\Day12\\example.txt");
             var data = File.ReadAllLines("..\\..\\..\\Day12\\data.txt");
             var width = data[0].Length;
             var height = data.Length;
-            #region part1
-            var (map, steps, startPosition, endPosition) = ParseInput(data, 'S', 'E');
+
+        #region part1
+            var (map, startPosition, endPosition) = ParseInput(data);
             AnsiConsole.WriteLine("Part 1");
             AnsiConsole.WriteLine($"Start position {startPosition}\nEnd {endPosition}");
 
-            // start/end values
-            map[startPosition.X, startPosition.Y] = 'z';
+            // Set start/end actual values
+            map[startPosition.First().X, startPosition[0].Y] = 'z';
             map[endPosition.X, endPosition.Y] = 'z';
-            var queue = new Queue<Point>();
-            queue.Enqueue(startPosition);
-            //Console.WriteLine($"Testing {Solve2(map,startPosition,endPosition)}");
-            while (queue.Count > 0)
-            {
-                var current = queue.Dequeue();
-                var nextSteps = steps[current.X, current.Y] + 1;
-                foreach (var direction in Directions.WithoutDiagonals)
-                {
-                    var newPosition = new Point(current.X + direction.X, current.Y + direction.Y);
-                    if (newPosition.X >= 0 &&
-                        newPosition.Y >= 0 &&
-                        newPosition.X < width &&
-                        newPosition.Y < height &&
-                        steps[newPosition.X, newPosition.Y] == 0 &&
-                        newPosition != startPosition)
-                    {
-                        if (map[newPosition.X, newPosition.Y] <= map[current.X, current.Y] + 1)
-                        {
-                            if (newPosition == endPosition)
-                            {
-                                AnsiConsole.WriteLine($"Answer:{nextSteps}");
-                            }
+            Console.WriteLine($"Part1: {FindPath(map, startPosition[0], endPosition)}");
+        #endregion
 
-                            steps[newPosition.X, newPosition.Y] = nextSteps;
-                            queue.Enqueue(newPosition);
-                        }
-                    }
-                }
-            }
-            #endregion
-
-            #region part2
+        #region part2
             AnsiConsole.WriteLine("\nPart 2");
-            var (map2, steps2, startPositions2, endPosition2) = ParseInputP2(data, 'a', 'E');
-            map2[endPosition2.X, endPosition2.Y] = 'z';
+            var (map_p2, startPositions_p2, endPosition_p2) = ParseInput(data, 'a', 'E');
+            map_p2[endPosition_p2.X, endPosition_p2.Y] = 'z';
 
-            AnsiConsole.WriteLine($"Found {startPositions2.Count} starting positions:");
-            foreach (var p in startPositions2)
-            {
-                AnsiConsole.WriteLine($"{String.Join(",", p)}");
-
-            }
-
+            AnsiConsole.WriteLine($"Found {startPositions_p2.Count} starting positions");
+            startPositions_p2.ForEach(startpos => map_p2[startpos.X, startpos.Y] = 'a');
             List<int> part2Steps = new List<int>();
-            foreach (var startpos in startPositions2)
-            {
-                int currsteps = Solve2(map2, startpos, endPosition2);
-                part2Steps.Add(currsteps);
-                AnsiConsole.WriteLine(currsteps);
-            }
+            startPositions_p2.ForEach(startpos => part2Steps.Add(FindPath(map_p2, startpos, endPosition_p2)));
 
-            AnsiConsole.WriteLine("part2?");
-            AnsiConsole.WriteLine(part2Steps.Min());
+            AnsiConsole.WriteLine($"Part 2: {part2Steps.Min()}");
 
-            #endregion
+        #endregion
             timer.Stop();
             AnsiConsole.WriteLine(timer.Elapsed.ToString());
         }
 
-        private static (char[,] map, int[,] steps, Point startPosition, Point endPosition) ParseInput(string[] data, char start, char end)
+        private static (char[,] map, List<Point> startPosition, Point endPosition) ParseInput(string[] data, char start = 'S', char end = 'E')
         {
             var width = data[0].Length;
             var height = data.Length;
             var map = new char[width, height];
-            var steps = new int[width, height];
-            Point startPosition = default;
+
+            List<Point> startPositions = new() { };
             Point endPosition = default;
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
                     map[x, y] = data[y][x];
-                    if (map[x, y] == start)
+                    if (map[x, y] == 'S' || map[x, y] == start)
                     {
-                        startPosition = new Point(x, y);
-                    }
-                    else if (map[x, y] == end)
-                    {
-                        endPosition = new Point(x, y);
-                    }
-                }
-            }
-
-            return (map, steps, startPosition, endPosition);
-        }
-
-        private static (char[,] map, int[,] steps, List<Point> startPosition, Point endPosition) ParseInputP2(string[] data, char start, char end)
-        {
-            var width = data[0].Length;
-            var height = data.Length;
-            var map = new char[width, height];
-            var steps = new int[width, height];
-            List<Point> startPositions = new List<Point> {};
-            Point endPosition = default;
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    map[x, y] = data[y][x];
-                    if (map[x,y] == 'S' || map[x,y]==start)
-                    {
-                        map[x, y] = 'a';
                         var newPoint = new Point(x, y);
                         if (!startPositions.Contains(newPoint))
                         {
@@ -152,11 +85,11 @@ namespace aoc2022.Day12
                 }
             }
 
-            return (map, steps, startPositions, endPosition);
+            return (map, startPositions, endPosition);
         }
 
 
-        private static int Solve2(char[,] map, Point startPosition, Point endPosition)
+        private static int FindPath(char[,] map, Point startPosition, Point endPosition)
         {
             int width = map.GetLength(0);
             int height = map.GetLength(1);
@@ -167,19 +100,19 @@ namespace aoc2022.Day12
 
             while (queue.Count > 0)
             {
-                var current = queue.Dequeue();
-                var nextSteps = steps[current.X, current.Y] + 1;
+                var currentPoint = queue.Dequeue();
+                var nextSteps = steps[currentPoint.X, currentPoint.Y] + 1;
                 foreach (var direction in Directions.WithoutDiagonals)
                 {
-                    var newPosition = new Point(current.X + direction.X, current.Y + direction.Y);
-                    if (newPosition.X >= 0 &&
-                        newPosition.Y >= 0 &&
-                        newPosition.X < width &&
-                        newPosition.Y < height &&
+                    var newPosition = new Point(currentPoint.X + direction.X,
+                                                currentPoint.Y + direction.Y);
+                    if (newPosition.X >= 0 && newPosition.Y >= 0 &&
+                        newPosition.X < width && newPosition.Y < height &&
                         steps[newPosition.X, newPosition.Y] == 0 &&
                         newPosition != startPosition)
                     {
-                        if (map[newPosition.X, newPosition.Y] <= map[current.X, current.Y] + 1)
+                        // Compare char values
+                        if (map[newPosition.X, newPosition.Y] <= map[currentPoint.X, currentPoint.Y] + 1)
                         {
                             if (newPosition == endPosition)
                             {
@@ -192,7 +125,6 @@ namespace aoc2022.Day12
                     }
                 }
             }
-
             return int.MaxValue;
         }
 
